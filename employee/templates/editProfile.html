@@ -1,0 +1,151 @@
+{% extends 'empBase.html' %}
+{% block main %}
+<div class="card shadow m-2">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom:2px solid orange">Edit Profile </h5>
+        <div class="container-fluid">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" name="firstname" class="form-control" value="{{employee.user.first_name}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" name="lastname" class="form-control" value="{{employee.user.last_name}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Department</label>
+                            <input type="text" name="empDep" class="form-control" value="{{employee.empdept}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Designation</label>
+                            <input type="text" name="empDes" class="form-control" value="{{employee.designation}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Mobile No.</label>
+                            <input type="text" name="empContact" class="form-control" value="{{employee.contact}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Reporting Manager Email ID</label>
+                            <input type="text" name="manager" class="form-control" value="{{employee.manage}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input type="date" name="db" class="form-control" value="{{employee.dob}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Adhar No.</label>
+                            <input type="text" name="adharno" class="form-control" value="{{employee.adhar}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Provident Fund No.</label>
+                            <input type="text" name="pf" class="form-control" value="{{employee.pfno}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>UAN</label>
+                            <input type="text" name="uann" class="form-control" value="{{employee.uan}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>ESIC IP</label>
+                            <input type="text" name="esic" class="form-control" value="{{employee.esicip}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Bank Name</label>
+                            <input type="text" name="bname" class="form-control" value="{{employee.bank}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Account No.</label>
+                            <input type="text" name="acno" class="form-control" value="{{employee.accountno}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>IFSC</label>
+                            <input type="text" name="ifscno" class="form-control" value="{{employee.ifsc}}">
+                        </div>
+                    </div>
+                    <!--<div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="emtype">Employee Type</label>
+                            <select name="emtype" id="emtype" class="form-control">
+                                <option value="" disabled selected>Select Employee Type</option>
+                                <option value="Staff">Staff</option>
+                                <option value="Professional">Professional</option>
+                            </select>
+                        </div>
+                    </div>-->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Date Of Joining</label>
+                            <input type="date" name="jdate" class="form-control" value="{{employee.joiningDate}}">
+                        </div>
+                    </div>
+                    <!--<div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select name="gender" class="form-control">
+                                <option value="" disabled selected>Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>-->
+                </div>
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-primary" style="margin-left: 50%; margin-top: 30px;">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    // Alert the user when they try to go back to the login page
+    window.addEventListener('popstate', function (event) {
+        if (event.target.location.pathname === '/empLogin/') {
+            alert('You are already logged in. To log out, please use the logout functionality.');
+            event.preventDefault();
+        }
+    });
+</script>
+
+{% if error == "no" %}
+<script>
+    alert("Profile Updated Successfully!!!");
+    window.location = ("{% url 'viewProfile' %}");
+</script>
+{% endif %}
+{% if error == "yes" %}
+<script>
+    alert("Something went wrong. Try Again....");
+</script>
+{% endif %}
+
+{% endblock %}

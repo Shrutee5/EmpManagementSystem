@@ -1,0 +1,119 @@
+{% extends 'adminBase.html' %}
+{% block main %}
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+<script>
+    $(document).ready(function() {
+    $('#attend').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+        ]
+    } );
+} );
+</script>
+<style>
+    .card {
+      width: 100%;
+    }
+    
+    .card-body {
+      overflow-x: auto;
+    }
+    
+    table {
+      width: 100%;
+    }
+    </style>
+<div class="card shadow m-2">
+    <div class="card-body" style="width:100%">
+        <h5 class="p-2" style="border-bottom:2px solid orange">Monthly Attendance Report</h5>
+        <div class="container-fluid" style="width:100%">
+            <table class="table" id="attend" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Sr. No.</th>
+                        <th>Name</th>
+                        <th>Month</th>
+                        <th>Year</th>
+                        <th>Present Days</th>
+                        <th>Total Working Days</th>
+                        <th>Total Bi-Monthly Offs</th>
+                        <th>Balance Bi-Monthly Offs</th>
+                        <th>Approved Leaves</th>
+                        <th>Sundays</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if cnt == 1 %}
+                    <tr>
+                        <td>1</td>
+                        <td>{{attendance_data.user.first_name}} {{attendance_data.user.last_name}}</td>
+                        <td>{{attendance_data.month}}</td>
+                        <td>{{attendance_data.year}}</td>
+                        <td>{{attendance_data.days_present}}</td>
+                        <td>{{attendance_data.days_total}}</td>
+                        <td>{{attendance_data.biMOT}}</td>
+                        <td>{{attendance_data.biMOB}}</td>
+                        <td>{{attendance_data.paid_leave}}</td>
+                        <td>{{attendance_data.sundays}}</td>
+                    </tr>
+                    {% endif %}
+                    {% if cnt > 1 %}
+                    {% for i in attendance_data %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{i.user.first_name}} {{i.user.last_name}}</td>
+                        {% if i.month == 1 %}
+                        <td>January</td>
+                        {% elif i.month == 2 %}
+                        <td>February</td>
+                        {% elif i.month == 3 %}
+                        <td>March</td>
+                        {% elif i.month == 4 %}
+                        <td>April</td>
+                        {% elif i.month == 5 %}
+                        <td>May</td>
+                        {% elif i.month == 6 %}
+                        <td>June</td>
+                        {% elif i.month == 7 %}
+                        <td>July</td>
+                        {% elif i.month == 8 %}
+                        <td>August</td>
+                        {% elif i.month == 9 %}
+                        <td>September</td>
+                        {% elif i.month == 10 %}
+                        <td>October</td>
+                        {% elif i.month == 11 %}
+                        <td>November</td>
+                        {% elif i.month == 12 %}
+                        <td>December</td>
+                        {% endif %}
+                        <td>{{i.year}}</td>
+                        <td>{{i.days_present}}</td>
+                        <td>{{i.days_total}}</td>
+                        <td>{{i.biMOT}}</td>
+                        <td>{{i.biMOB}}</td>
+                        <td>{{i.paid_leave}}</td>
+                        <td>{{i.sundays}}</td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

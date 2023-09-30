@@ -1,0 +1,247 @@
+{% extends 'empBase.html' %}
+{% block main %}
+<style>
+    /* Table styles */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 10px;
+        text-align: left;
+    }
+
+    /* Adjust the column sizes as needed */
+    td.company-address{
+        text-align: right;
+    }
+    td.month-name{
+        text-align: center;
+    }
+    td.col1, td.col3{
+        width: 15%;
+    }
+    td.col2, td.col4{
+        width: 35%;
+    }
+    
+</style>
+<script>
+    $(document).ready(function() {
+        $('#downloadButton').on('click', function() {
+            // Generate the file content from the table
+            const tableContent = $('<table>').append($('#attend').clone()).html();
+
+            // Convert the table content to a Blob
+            const blob = new Blob([tableContent], { type: 'application/vnd.ms-excel' });
+
+            // Create a URL for the Blob
+            const url = URL.createObjectURL(blob);
+
+            // Create a hidden anchor element to trigger the download
+            const a = $('<a>');
+            a.attr('href', url);
+            a.attr('download', 'payslip.xls'); // File name
+
+            // Append the anchor element to the document and trigger the click event
+            $(document.body).append(a);
+            a[0].click();
+
+            // Clean up by revoking the URL
+            URL.revokeObjectURL(url);
+        });
+    });
+</script>
+
+
+<body>
+    <h5 class="p-2" style="border-bottom:2px solid orange">Download Payslip</h5>
+    <button id="downloadButton">Download Payslip</button>
+<br>
+<br>
+    <table id="attend">
+        <tr class="row1">
+            <td  colspan="4">
+                <!-- Your company logo here -->
+            </td>
+            <td colspan="6" class="company-address">
+                <b>Freedom from Diabetes Pvt Ltd.</b><br>
+                <b>1st Floor, 'Parth', Ghodke Chowk, Near Prabhat Road Police Chowky,</b><br>
+                <b>Prabhat Road, Pune-411004</b>
+            </td>
+        </tr>
+        <tr class="row2">
+            <td colspan="10" class="month-name">
+                <b>Payslip for the month of April 2023</b>
+            </td>
+        </tr>
+        <tr class="row3">
+            <td class="col1" colspan="2">
+                <p class="p1">
+                    Employee Name <br>
+                    Employee Code <br>
+                    Designation <br>
+                    Department <br>
+                    Bank Name <br>
+                    Bank Account No <br>
+                    Provident Fund No <br>
+                    UAN <br>
+                </p>
+            </td>
+            <td class="col2" colspan="3">
+                <p class="p2">
+                    Swati M Shirke <br>
+                    0022 <br>
+                    Manager <br>
+                    Accounts & Finance  <br>
+                    IDBI <br>
+                    0677104000117951 <br>
+                    <br>
+                    <br>
+                </p >
+            </td>
+            <td class="col3" colspan="2">
+                <p>
+                Payable Days <br>
+                Paid Days <br>
+                Paid Days-Arrear <br>
+                Joining Date <br>
+                PAN <br>
+                Location <br>
+                Grade <br>
+                ESIC IP <br>
+                </p>
+            </td>
+            <td class="col4" colspan="3">
+                <p>
+                30 <br>
+                30 <br>
+                0 <br>
+                01 May 2021 <br>
+                FTHPS6264M <br>
+                Pune <br>
+                SO <br>
+                <br>
+                </p>
+            </td>
+        </tr>
+        <tr class="row4">
+            <td colspan="2"><b>Hello</b></td>
+            <td colspan="4" style="text-align: center;"><b>Current Month</b></td>
+            <td colspan="4" style="text-align: center;"><b>April To Date</b></td>
+        </tr>
+        <tr class="row5">
+            <td colspan="3" style="text-align: center;"><b>Head</b></td>
+            <td colspan="2" style="text-align: center;"><b>Earning</b></td>
+            <td colspan="1" style="text-align: center;"><b>Deduction</b></td>
+            <td colspan="2" style="text-align: center;"><b>Earning</b></td>
+            <td colspan="2" style="text-align: center;"><b>Deduction</b></td>
+        </tr>
+        <tr class="row6">
+            <td colspan="3" style="text-align: left;">
+                <p>Basic <br>
+                    House Rent Allowance <br>
+                    Special Allowance <br>
+                    Bonus <br>
+                    Professional Tax <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </p>
+            </td>
+            <td colspan="2" style="text-align: right;">
+                <p>34,800.00 <br>
+                    13,920.00 <br>
+                    9,280.00 <br>
+                    40,000.00 <br>
+                    0.00 <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </p>
+            </td>
+            <td colspan="1" style="text-align: right;">
+                <p>0.00 <br>
+                    0.00 <br>
+                    0.00 <br>
+                    0.00 <br>
+                    200.00 <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </p>
+            </td>
+            <td colspan="2" style="text-align: right;">
+                <p>34,800.00 <br>
+                    13,920.00 <br>
+                    9,280.00 <br>
+                    40,000.00 <br>
+                    0.00 <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </p>
+            </td>
+            <td colspan="2" style="text-align: right;">
+                <p>0.00 <br>
+                    0.00 <br>
+                    0.00 <br>
+                    0.00 <br>
+                    200.00 <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </p>
+            </td>
+        </tr>
+        <tr class="row7">
+            <td colspan="3" style="text-align: left;"><b>Total</b></td>
+            <td colspan="2" style="text-align: right;"><b>98,000.00</b></td>
+            <td colspan="1" style="text-align: right;"><b>200.00</b></td>
+            <td colspan="2" style="text-align: right;"><b>98,000.00</b></td>
+            <td colspan="2" style="text-align: right;"><b>200.00</b></td>
+        </tr>
+        <tr>
+            <td colspan="10"><b>Net Salary :- 97,800.00 (Rs. Ninety Seven Thousand Eight Hundred and Zero Paise Only)</b>
+            </td>
+        </tr>
+    </table>
+</body>
+{% endblock %}

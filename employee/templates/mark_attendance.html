@@ -1,0 +1,9 @@
+{% extends 'empBase.html' %}
+{% block main %}
+<form method="POST" action="{% url 'mark_attendance' %}">
+    {% csrf_token %}
+    <input type="checkbox" name="is_present" value="True" {% if attendance %}disabled{% endif %}> Present<br>
+    <input type="submit" value="Submit" {% if attendance %}disabled{% endif %}>
+</form>
+
+{% endblock %}

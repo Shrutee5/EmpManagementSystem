@@ -1,0 +1,162 @@
+{% extends 'adminBase.html' %}
+
+{% block main %}
+<div class="card shadow m-2">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom:2px solid orange">Add Employee Details </h5>
+        <div class="container-fluid">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Department</label>
+                            <input type="text" name="empDep" class="form-control" placeholder="Enter Employee Department">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Designation</label>
+                            <input type="text" name="empDes" class="form-control" placeholder="Enter Employee Designation" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Mobile No.</label>
+                            <input type="text" name="empContact" class="form-control" placeholder="Enter Contact Number" pattern="[0-9]+" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Email ID</label>
+                            <input type="text" name="emailid" class="form-control" placeholder="Enter Email ID" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Manager Email ID</label>
+                            <input type="text" name="manager" class="form-control" placeholder="Enter Manager Email ID" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input type="date" name="db" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Adhar No.</label>
+                            <input type="text" name="adharno" class="form-control" placeholder="Enter Adhar No.">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Provident Fund No.</label>
+                            <input type="text" name="pf" class="form-control" placeholder="Enter Provident Fund No.">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>UAN</label>
+                            <input type="text" name="uann" class="form-control" placeholder="Enter UAN">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>ESIC No.</label>
+                            <input type="text" name="esic" class="form-control" placeholder="Enter ESIC IP">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Bank Name</label>
+                            <input type="text" name="bname" class="form-control" placeholder="Enter Bank Name">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Account No.</label>
+                            <input type="text" name="acno" class="form-control" placeholder="Enter Account No.">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>IFSC Code</label>
+                            <input type="text" name="ifscno" class="form-control" placeholder="Enter IFSC">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="employeeType">Employee Type</label>
+                            <select name="employeeType" id="employeeType" class="form-control">
+                                <option value="" disabled selected>Select Employee Type</option>
+                                <option value="Staff">Staff</option>
+                                <option value="Professional">Professional</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Date Of Joining </label>
+                            <input type="date" name="jdate" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select name="gender" class="form-control">
+                                <option value="" disabled selected>Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Leaving Date</label>
+                            <input type="date" name="ldate" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select name="status" class="form-control">
+                                <option value="" disabled selected>Select Status</option>
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Company Name</label>
+                            <select name="company" class="form-control">
+                                <option value="" disabled selected>Select Company Name</option>
+                                <option value="Freedom From Diabetes Pvt. Ltd.">Freedom From Diabetes Pvt. Ltd.</option>
+                                <option value="Freedom From Diabetes Research Foundation">Freedom From Diabetes Research Foundation</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Add" class="btn btn-dark m-2 px-3">
+            </form>
+        </div>
+    </div>
+</div>
+
+{% if error == "no" %}
+<script>
+    alert("Profile Created Successfully!!!");
+    window.location = ("{% url 'register' %}");
+</script>
+{% endif %}
+{% if error == "yes" %}
+<script>
+    alert("Something went wrong. Try Again....");
+</script>
+{% endif %}
+
+{% endblock %}

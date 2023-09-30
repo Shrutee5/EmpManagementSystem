@@ -1,0 +1,105 @@
+{% extends 'empBase.html' %}
+{% block main %}
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.4.0/js/dataTables.fixedHeader.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.4.0/css/fixedHeader.dataTables.min.css">
+<script>
+    $(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+        ]
+    } );
+} );
+new DataTable('#example', {
+    fixedHeader: {
+        header: true,
+        footer: true
+    },
+    paging: false,
+    scrollCollapse: true,
+    scrollX: true,
+    scrollY: 300
+});
+</script>
+<style>
+.card {
+  width: 100%;
+}
+
+.card-body {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+}
+</style>
+<div class="card shadow m-2" style="width:100%">
+    <div class="card-body" style="width:100%">
+        <h5 class="p-2" style="border-bottom:2px solid orange">Monthly Attendance Report</h5>
+        <div class="container-fluid" style="width:100%">
+            <table class="table" id="example" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Sr. No.</th>
+                        <th>Month</th>
+                        <th>Year</th>
+                        <th>Present Days</th>
+                        <th>Total Working Days</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for attend in attendance_data %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        {% if attend.month == 1 %}
+                        <td>January</td>
+                        {% elif attend.month == 2 %}
+                        <td>February</td>
+                        {% elif attend.month == 3 %}
+                        <td>March</td>
+                        {% elif attend.month == 4 %}
+                        <td>April</td>
+                        {% elif attend.month == 5 %}
+                        <td>May</td>
+                        {% elif attend.month == 6 %}
+                        <td>June</td>
+                        {% elif attend.month == 7 %}
+                        <td>July</td>
+                        {% elif attend.month == 8 %}
+                        <td>August</td>
+                        {% elif attend.month == 9 %}
+                        <td>September</td>
+                        {% elif attend.month == 10 %}
+                        <td>October</td>
+                        {% elif attend.month == 11 %}
+                        <td>November</td>
+                        {% elif attend.month == 12 %}
+                        <td>December</td>
+                        {% endif %}
+                        <td>{{attend.year}}</td>
+                        <td>{{attend.days_present}}</td>
+                        <td>{{attend.days_total}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

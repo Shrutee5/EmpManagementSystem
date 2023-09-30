@@ -1,0 +1,88 @@
+{% load static %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<style>
+    .list-group-item{
+        padding: 8px !important;
+    }
+</style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2" style="padding-left: 5px; padding-top: 5px; margin-left: 5px;" >
+                <img src="{% static 'images/admin.png' %}" alt="icon" width="100px" height="100px" class="img-thumbnail rounded-circle">
+                <div class="list-group">
+                    <a href="{% url 'adminHome' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/adminHome/' %} active {% endif %}">Dashboard</a>
+                    <a href="{% url 'register' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/register/' %} active {% endif %}">Create an account</a>
+                    <a href="{% url 'addEmpDetails' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/addEmpDetails/' %} active {% endif %}">Add Employee Details</a>
+                    <a href="{% url 'allEmployeeDetails' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/allEmployeeDetails/' %} active {% endif %}">All Employees</a>
+                    <a href="{% url 'attendanceReport' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/attendanceReport/' %} active {% endif %}">Download Attendance </a>
+                    <a href="{% url 'viewAttendanceReport' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/viewAttendanceReport/' %} active {% endif %}">Monthly Attendance Report </a>
+                    <!--<a href="{% url 'viewLeaveApplication' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/viewLeaveApplication/' %} active {% endif %}">Manage Leave Application </a>-->
+                    <!--<a href="{% url 'staffSalary' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/staffSalary/' %} active {% endif %}">Staff Salary </a>
+                    <a href="{% url 'incentive' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/incentive/' %} active {% endif %}">Incentive Calculations </a>
+                    <a href="{% url 'doctorIncentive' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/doctorIncentive/' %} active {% endif %}">Doctor Incentive Calculations </a>
+                    <a href="{% url 'dietIncentive' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/dietIncentive/' %} active {% endif %}">Diet Incentive Calculations </a>-->
+                    <a href="{% url 'viewExcerciseIncentive' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/viewExcerciseIncentive/' %} active {% endif %}">Excercise Incentive Calculations </a>
+                    <a href="{% url 'viewDoctorIncentive' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/viewDoctorIncentive/' %} active {% endif %}">Doctor Incentive Calculations </a>
+                    <a href="{% url 'viewDietIncentive' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/viewDietIncentive/' %} active {% endif %}">Diet Incentive Calculations </a>
+                    <!--<a href="{% url 'getMonthAndYear' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/getMonthAndYear/' %} active {% endif %}">Salary Calculations </a>-->
+                    <a href="{% url 'salaryCalculation' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/salaryCalculation/' %} active {% endif %}">Staff Salary Calculations </a>
+                    <a href="{% url 'professionalSalaryCalculation' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/professionalSalaryCalculation/' %} active {% endif %}">Professional Salary Calculations </a>
+                    <!--<a href="{% url 'getMonthnYear' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/getMonthnYear/' %} active {% endif %}">Professional Salary Calculations </a>-->
+                    <a href="{% url 'DownloadProfessionalSalary' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/DownloadProfessionalSalary/' %} active {% endif %}">Download Professional Salary </a>
+                    <a href="{% url 'DownloadStaffSalary' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/DownloadStaffSalary/' %} active {% endif %}">Download Staff Salary </a>
+                    <a href="{% url 'generateSlip' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/generateSlip/' %} active {% endif %}">Generate Payslip </a>
+                    <a href="{% url 'adminChangePassword' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/adminChangePassword/' %} active {% endif %}">Change Password</a>
+                    <a id="logout-link" href="{% url 'logout' %}" class="list-group-item list-group-item-action list-group-item-danger {% if request.path == '/logout/' %} active {% endif %}">Logout</a>
+                </div>
+            </div>
+            <div class="col-sm-9 p-0 p-0">
+                <div class="containder-fluid p-2">
+                    <h5 class="text-center p-3 font-weight-bold" style="border-bottom: 2px solid green;">PAYROLL HUB</h5>
+                    <div class="card shadow" style="min-height:89vh">
+                        <div class="card-body">
+                            {% block main %}
+                            {% endblock %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to log out?
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal" style="margin-left: 0px;">Cancel</button>
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'logout' %}" class="btn btn-danger btn-block" style="margin-left: 10px;">Logout</a>
+                </div>
+            </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>

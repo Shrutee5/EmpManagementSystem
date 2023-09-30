@@ -1,0 +1,392 @@
+{% extends 'empBase.html' %}
+{% load static %}
+{% block main %}
+<style>
+    /* Table styles */
+    table {
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 10px;
+        text-align: left;
+    }
+
+    /* Adjust the column sizes as needed */
+    td.company-address{
+        text-align: right;
+    }
+    td.month-name{
+        text-align: center;
+    }
+    td.col1, td.col3{
+        width: 15%;
+    }
+    td.col2, td.col4{
+        width: 35%;
+    }
+    
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+    //$(document).ready(function() {
+      //  $('#downloadButton').on('click', function() {
+            // Generate the file content from the table
+        //    const tableContent = $('<table>').append($('#attend').clone()).html();
+
+            // Options for html2pdf
+          //  const options = {
+               // margin: [10, 10, 10, 10], // Margin [top, left, bottom, right]
+               // filename: 'payslip.pdf',
+               // image: { type: 'jpeg', quality: 0.98 },
+               // html2canvas: { scale: 5 },
+               // jsPDF: { unit: 'mm', format: 'a3', orientation: 'landscape' }
+           // };
+
+            // Generate the PDF
+          //  html2pdf().from(tableContent).set(options).save();
+       // });
+  //  });
+  $(document).ready(function() {
+    $('#downloadButton').on('click', function() {
+        // Generate the PDF from the table-content div
+        const tableContent = $('#table-content')[0]; // Use [0] to get the DOM element
+        // Get the employee name, selected month, and year
+        const employeeName = '{{staffCal.empcode.user.first_name}} {{staffCal.empcode.user.last_name}}';
+        const selectedMonth = '{{selected_month}}';
+        const selectedYear = '{{selected_year}}';
+        const empT = '{{emp.emptype}}';
+        console.log(empT)
+
+        // Create a custom filename for the PDF
+        const filename = `${employeeName}_${selectedMonth}_${selectedYear}_payslip.pdf`;
+
+        // Options for html2pdf
+        
+        const options = {
+            margin: [10, 10, 10, 10], // Margin [top, left, bottom, right]
+            filename: filename,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 5 },
+            jsPDF: { unit: 'mm', format: 'a3', orientation: 'portrait' }
+        };
+
+        // Generate the PDF
+        html2pdf().from(tableContent).set(options).save();
+    });
+});
+
+</script>
+
+<body>
+    <h5 class="p-2" style="border-bottom:2px solid orange">Download Payslip</h5>
+    <form method="post" id="filter-form">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="month">Month</label>
+                <select class="form-control" id="month" name="month" required>
+                    <option value="" disabled selected>Select Month</option>
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="year">Year</label>
+                <select class="form-control" id="year" name="year" required>
+                    <option value="" disabled selected>Select Year</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                    <option value="2030">2030</option>
+                    <!-- Add other years here -->
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <button type="submit" class="btn btn-primary" style="margin-left: 20px; margin-top: 30px;">Submit</button>
+            </div>
+        </form>
+{% if flag == "no" %}
+        <div class="form-group col-md-4">
+            <button id="downloadButton">Download Payslip</button>
+        </div>
+<br>
+<br>
+<div id="table-content" class="col-sm-12">
+    <table id="attend" style="border-collapse: collapse;">
+        {% if emp.company_name == "Freedom From Diabetes Pvt. Ltd." %}
+        <tr class="row1">
+            <td  colspan="4">
+                <!-- Your company logo here -->
+                <img src="{% static 'images/ffd_pl.jpeg' %}" alt="icon" width="100%" height="100%" class="img-thumbnail">
+            </td>
+            <td colspan="6" class="company-address">
+                <b>Freedom from Diabetes Pvt Ltd.</b><br>
+                <b>1st Floor, 'Parth', Ghodke Chowk, Near Prabhat Road Police Chowky,</b><br>
+                <b>Prabhat Road, Pune-411004</b>
+            </td>
+        </tr>
+        {% elif staffCal.empcode.company_name == "Freedom From Diabetes Research Foundation" %}
+        <tr class="row1">
+            <td  colspan="4">
+                <!-- Your company logo here -->
+                <img src="{% static 'images/ffdrf.jpeg' %}" alt="icon" width="150px" height="100px" class="img-thumbnail" style="margin-left: 25%;">
+            </td>
+            <td colspan="6" class="company-address">
+                <b>Freedom from Diabetes Research Foundation</b><br>
+                <b>1st Floor, 'Parth', Ghodke Chowk, Near Prabhat Road Police Chowky,</b><br>
+                <b>Prabhat Road, Pune-411004</b>
+            </td>
+        </tr>
+        {% endif %}
+        <tr class="row2">
+            <td colspan="10" class="month-name">
+                <b>Payslip for the month of {{selected_month}} {{selected_year}}</b>
+            </td>
+        </tr>
+        <tr class="row3">
+            <td class="col1" colspan="4">
+                <p class="p1">
+                    Employee Name <br>
+                    Employee Code <br>
+                    Designation <br>
+                    Department <br>
+                    Bank Name <br>
+                    Bank Account No. <br>
+                    Provident Fund No. <br>
+                    UAN <br>
+                </p>
+            </td>
+            <td class="col2" colspan="6">
+                <p class="p2">
+                    {{emp.user.first_name}} {{emp.user.last_name}} <br>
+                    {{emp.empcode}} <br>
+                    {{emp.designation}} <br>
+                    {{emp.empdept}}  <br>
+                    {{emp.bank}} <br>
+                    {{emp.accountno}} <br>
+                    {{emp.pfno}}<br>
+                    {{emp.uan}}<br>
+                </p >
+            </td>
+        </tr>
+        <tr class="row8">
+            <td class="col3" colspan="4">
+                <p>
+                Payable Days <br>
+                Paid Days <br>
+                Paid Days-Arrear <br>
+                Joining Date <br>
+                PAN <br>
+                Location <br>
+                Grade <br>
+                ESIC IP <br>
+                </p>
+            </td>
+            <td class="col4" colspan="6">
+                <p>
+                {{days_total}} <br>
+                {{staffCal.paid_days}} <br>
+                0 <br>
+                {{emp.joiningDate}}<br>
+                - <br>
+                - <br>
+                - <br>
+                {{emp.esicip}}<br>
+                </p>
+            </td>
+        </tr>
+        <tr class="row4">
+            <td colspan="2"><b></b></td>
+            <td colspan="4" style="text-align: center;"><b>Current Month</b></td>
+            <td colspan="4" style="text-align: center;"><b>April To Date</b></td>
+        </tr>
+        <tr class="row5">
+            <td colspan="3" style="text-align: center;"><b>Head</b></td>
+            <td colspan="2" style="text-align: center;"><b>Earning</b></td>
+            <td colspan="1" style="text-align: center;"><b>Deduction</b></td>
+            <td colspan="2" style="text-align: center;"><b>Earning</b></td>
+            <td colspan="2" style="text-align: center;"><b>Deduction</b></td>
+        </tr>
+        {% if emp.emptype == 'Staff' %}
+        <tr class="row6">
+            <td colspan="3" style="text-align: left;">
+                <p>Basic <br>
+                    House Rent Allowance <br>
+                    Special Allowance <br>
+                    Bonus <br>
+                    Other Earning <br>
+                    Professional Tax <br>
+                    PF deduction<br>
+                    ESIC Deduction<br>
+                    Other Deduction <br>
+                </p>
+            </td>
+            <td colspan="2" style="text-align: right;">
+                <p>{{bas}} <br>
+                    {{hra}} <br>
+                    {{speAll}} <br>
+                    {{ince}} <br>
+                    {{oe}} <br>
+                    0.00 <br>
+                    0.00 <br>
+                    0.00<br>
+                    0.00<br>
+                </p>
+            </td>
+            <td colspan="1" style="text-align: right;">
+                <p>0.00 <br>
+                    0.00 <br>
+                    0.00 <br>
+                    0.00 <br>
+                    0.00 <br>
+                    {{proTax}} <br>
+                    {{pf_ded}} <br>
+                    {{esic_ded}} <br>
+                    {{od}} <br>
+                </p>
+            </td>
+            <td colspan="2" style="text-align: right;">
+                <p>{{basic_a_all}}<br>
+                    {{hra_a_all}}<br>
+                    {{speAll_a_all}}<br>
+                    {{bonus_all}}<br>
+                    {{oe_all}}<br>
+                    0.00 <br>
+                    0.00 <br>
+                    0.00<br>
+                    0.00<br>
+                </p>
+            </td>
+            <td colspan="2" style="text-align: right;">
+                <p>0.00 <br>
+                    0.00 <br>
+                    0.00 <br>
+                    0.00 <br>
+                    0.00 <br>
+                    {{pro_t_all}} <br>
+                    {{pf_ded_all}} <br>
+                    {{esic_ded_all}} <br>
+                    {{other_ded_all}} <br>
+                </p>
+            </td>
+        </tr>
+        <tr class="row7">
+            <td colspan="3" style="text-align: left;"><b>Total</b></td>
+            <td colspan="2" style="text-align: right;"><b>{{gross_sal_a}}</b></td>
+            <td colspan="1" style="text-align: right;"><b>{{gross_ded}}</b></td>
+            <td colspan="2" style="text-align: right;"><b>{{gross_sal_a_all}}</b></td>
+            <td colspan="2" style="text-align: right;"><b>{{gross_ded_all}}</b></td>
+        </tr>
+        <tr>
+            <td colspan="10"><b>Net Salary :- {{amt}} (Rs. {{amount}} Paise Only)</b>
+            </td>
+        </tr>
+        {% elif emp.emptype == 'Professional' %}
+        <tr class="row6">
+            <td colspan="3" style="text-align: left;">
+                <p>App Salary <br>
+                    Professional Fees <br>
+                    Incentive <br>
+                    Other Earning <br>
+                    Income Tax <br>
+                    Other Deduction<br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </p>
+            </td>
+            <td colspan="2" style="text-align: right;">
+                <p>{{app_sal}} <br>
+                    {{prof_f}} <br>
+                    {{pro_in}} <br>
+                    {{o_earn}} <br>
+                    0.00 <br>
+                    0.00 <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </p>
+            </td>
+            <td colspan="1" style="text-align: right;">
+                <p>0.00 <br>
+                    0.00 <br>
+                    0.00 <br>
+                    0.00 <br>
+                    {{inc_tax}} <br>
+                    {{o_ded}} <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </p>
+            </td>
+            <td colspan="2" style="text-align: right;">
+                <p>{{app_sal_all}}<br>
+                    {{prof_f_all}}<br>
+                    {{pro_in_all}}<br>
+                    {{o_ean_all}}<br>
+                    0.00 <br>
+                    0.00 <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </p>
+            </td>
+            <td colspan="2" style="text-align: right;">
+                <p>0.00 <br>
+                    0.00 <br>
+                    0.00 <br>
+                    0.00 <br>
+                    {{inc_tax_all}} <br>
+                    {{o_ded_all}} <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </p>
+            </td>
+        </tr>
+        <tr class="row7">
+            <td colspan="3" style="text-align: left;"><b>Total</b></td>
+            <td colspan="2" style="text-align: right;"><b>{{gross_e}}</b></td>
+            <td colspan="1" style="text-align: right;"><b>{{gros_ded}}</b></td>
+            <td colspan="2" style="text-align: right;"><b>{{gross_e_all}}</b></td>
+            <td colspan="2" style="text-align: right;"><b>{{gros_ded_all}}</b></td>
+        </tr>
+        <tr>
+            <td colspan="10"><b>Net Salary :- {{net_s}} (Rs. {{amount}} Paise Only)</b>
+            </td>
+        </tr>
+        {% endif %}
+
+    </table>
+</div>
+{% elif flag == "yes" %}
+<h3>Salary Slip for the month {{selected_month}}-{{selected_year}} is not generated yet!!!</h3>
+{% endif %}
+</body>
+{% endblock %}

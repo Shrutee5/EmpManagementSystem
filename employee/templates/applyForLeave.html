@@ -1,0 +1,186 @@
+{% extends 'empBase.html' %}
+{% load static %}
+{% block main %}
+<div class="card shadow m-2" style="min-height:50vh">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom:2px solid orange">Available Leaves & Holidays</h5>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card shadow mb-3">
+                        <div class="card-body" style="padding-top: 2px;">
+                            <h6 class="p-2" style="font-size: 18px; text-align: center; margin:0%;">Earned Leave</h6>
+                            <img src="{% static 'images/calender1.jpg' %}" width="150px" height="150px" style="margin-left: 12px; margin-top: 0px; padding-top: 2px;" >
+                            <h6 style="margin: 0%; text-align: center;">Balance <span style="background-color: rgb(248, 200, 113); padding: 1px 10px 1px 10px; margin: 1px 5px 1px 5px; border-radius: 10px; text-align: center;">{{yearLeaveObj3.earnedLeaveB}}</span> days</h6>
+                            <h6 style="margin: 0%; text-align: center; margin-top: 12px;">Total <span style="background-color: white; padding: 2px 10px 2px 10px; margin: 1px 5px 1px 5px; border-radius: 10px; text-align: center;">{{yearLeaveObj3.earnedLeaveT}}</span> days</h6>
+                            <hr style="border-bottom:2px solid orange; margin-bottom: 4px;">
+                            <h6 style="text-align: center; color: green;">PAID LEAVE</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card shadow mb-3">
+                        <div class="card-body" style="padding-top: 2px;">
+                            <h6 class="p-2" style="font-size: 18px; text-align: center; margin:0%;">Sick Leave</h6>
+                            <img src="{% static 'images/calender1.jpg' %}" width="150px" height="150px" style="margin-left: 12px; margin-top: 0px; padding-top: 2px;" >
+                            <h6 style="margin: 0%; text-align: center;">Balance <span style="background-color: rgb(244, 193, 193); padding: 1px 10px 1px 10px; margin: 1px 5px 1px 5px; border-radius: 10px; text-align: center;">{{yearLeaveObj3.sickLeaveB}}</span> days</h6>
+                            <h6 style="margin: 0%; text-align: center; margin-top: 12px;">Total <span style="background-color: white; padding: 2px 10px 2px 10px; margin: 1px 5px 1px 5px; border-radius: 10px; text-align: center;">{{yearLeaveObj3.sickLeaveT}}</span> days</h6>
+                            <hr style="border-bottom:2px solid rgb(235, 118, 118); margin-bottom: 4px;">
+                            <h6 style="text-align: center; color: green;">PAID LEAVE</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card shadow mb-3">
+                        <div class="card-body" style="padding-top: 2px;">
+                            <h6 class="p-2" style="font-size: 18px; text-align: center; margin:0%;">Bi-monthly Offs</h6>
+                            <img src="{% static 'images/calender1.jpg' %}" width="150px" height="150px" style="margin-left: 12px; margin-top: 0px; padding-top: 2px;" >
+                            <h6 style="margin: 0%; text-align: center;">Balance <span style="background-color: rgb(219, 255, 166); padding: 1px 10px 1px 10px; margin: 1px 5px 1px 5px; border-radius: 10px; text-align: center;">{{attendSummary.biMOB}}</span> days</h6>
+                            <h6 style="margin: 0%; text-align: center; margin-top: 12px;">Total <span style="background-color: white; padding: 2px 10px 2px 10px; margin: 1px 5px 1px 5px; border-radius: 10px; text-align: center;">{{attendSummary.biMOT}}</span> days</h6>
+                            <hr style="border-bottom:2px solid rgb(99, 164, 1); margin-bottom: 4px;">
+                            <h6 style="text-align: center; color: green;">PAID LEAVE</h6>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card shadow mb-3">
+                        <div class="card-body" style="padding-top: 2px;">
+                            <h6 class="p-2" style="font-size: 18px; text-align: center; margin:0%;">Optional Holiday</h6>
+                            <img src="{% static 'images/calender1.jpg' %}" width="150px" height="150px" style="margin-left: 12px; margin-top: 0px; padding-top: 2px;" >
+                            <h6 style="margin: 0%; text-align: center;">Balance <span style="background-color: rgb(168, 250, 242); padding: 1px 10px 1px 10px; margin: 1px 5px 1px 5px; border-radius: 10px; text-align: center;">{{yearLeaveObj3.oH2B}}</span> days</h6>
+                            <h6 style="margin: 0%; text-align: center; margin-top: 12px;">Total <span style="background-color: white; padding: 2px 10px 2px 10px; margin: 1px 5px 1px 5px; border-radius: 10px; text-align: center;">{{yearLeaveObj3.oH2T}}</span> days</h6>
+                            <hr style="border-bottom:2px solid rgb(0, 168, 151); margin-bottom: 4px;">
+                            <h6 style="text-align: center; color: green;">PAID LEAVE</h6>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% if emp.gender == 'Female' %}
+                <div class="col-md-3">
+                    <div class="card shadow mb-3">
+                        <div class="card-body" style="padding-top: 2px;">
+                            <h6 class="p-2" style="font-size: 18px; text-align: center; margin:0%;">Maternity Leave (ML)</h6>
+                            <img src="{% static 'images/calender1.jpg' %}" width="150px" height="150px" style="margin-left: 12px; margin-top: 0px; padding-top: 2px;" >
+                            <h6 style="margin: 0%; text-align: center;">Balance <span style="background-color: rgb(251, 180, 251); padding: 1px 10px 1px 10px; margin: 1px 5px 1px 5px; border-radius: 10px; text-align: center;">{{yearLeaveObj3.maternityLB}}</span> days</h6>
+                            <h6 style="margin: 0%; text-align: center; margin-top: 12px;">Total <span style="background-color: white; padding: 2px 10px 2px 10px; margin: 1px 5px 1px 5px; border-radius: 10px; text-align: center;">{{yearLeaveObj3.maternityLT}}</span> days</h6>
+                            <hr style="border-bottom:2px solid rgb(213, 0, 213); margin-bottom: 4px;">
+                            <h6 style="text-align: center; color: green;">PAID LEAVE</h6>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="col-md-3">
+                    <div class="card shadow mb-3">
+                        <div class="card-body" style="padding-top: 2px;">
+                            <h6 class="p-2" style="font-size: 18px; text-align: center; margin:0%;">Freedom From Covid Leave (FFC)</h6>
+                            <img src="{% static 'images/calender1.jpg' %}" width="150px" height="150px" style="margin-left: 12px; margin-top: 0px; padding-top: 2px;" >
+                            <h6 style="margin: 0%; text-align: center;">Balance <span style="background-color: rgb(168, 250, 242); padding: 1px 10px 1px 10px; margin: 1px 5px 1px 5px; border-radius: 10px; text-align: center;">{{yearLeaveObj3.ffcB}}</span> days</h6>
+                            <h6 style="margin: 0%; text-align: center; margin-top: 12px;">Total <span style="background-color: white; padding: 2px 10px 2px 10px; margin: 1px 5px 1px 5px; border-radius: 10px; text-align: center;">{{yearLeaveObj3.ffcT}}</span> days</h6>
+                            <hr style="border-bottom:2px solid rgb(0, 168, 151); margin-bottom: 4px;">
+                            <h6 style="text-align: center; color: green;">PAID LEAVE</h6>
+                        </div>
+
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card shadow m-2">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom:2px solid orange">Apply For Leave</h5>
+        <div class="container-fluid">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="leaveType">Leave Type</label>
+                            <select name="leaveType" id="leaveType" required>
+                            <option value="" disabled selected>Select Leave Type</option>
+                            {% if yearLeaveObj3.earnedLeaveB == 0 %}
+                            <option value="Earned Leave" disabled>Earned Leave</option>
+                            {% endif %}
+                            {% if yearLeaveObj3.earnedLeaveB > 0 %}
+                            <option value="Earned Leave">Earned Leave</option>
+                            {% endif %}
+                            {% if yearLeaveObj3.sickLeaveB == 0 %}
+                            <option value="Sick Leave" disabled>Sick Leave</option>
+                            {% endif %}
+                            {% if yearLeaveObj3.sickLeaveB > 0 %}
+                            <option value="Sick Leave">Sick Leave</option>
+                            {% endif %}
+                            {% if yearLeaveObj3.ffcB > 0 %}
+                            <option value="Freedom From Covid Leave">Freedom From Covid Leave (FFC)</option>
+                            {% endif %}
+                            {% if yearLeaveObj3.ffcB == 0 %}
+                            <option value="Freedom From Covid Leave" disabled>Freedom From Covid Leave (FFC)</option>
+                            {% endif %}
+                            {% if attendSummary.biMOB > 0 %}
+                            <option value="Bi-monthly Offs">Bi-monthly Offs (BMO)</option>
+                            {% endif %}
+                            {% if attendSummary.biMOB == 0 %}
+                            <option value="Bi-monthly Offs" disabled>Bi-monthly Offs (BMO)</option>
+                            {% endif %}
+                            {% if yearLeaveObj3.maternityLB > 0 %}
+                            <option value="Maternity Leave">Maternity Leave (ML)</option>
+                            {% endif %}
+                            {% if yearLeaveObj3.maternityLB == 0 %}
+                            <option value="Maternity Leave" disabled>Maternity Leave (ML)</option>
+                            {% endif %}
+                            {% if yearLeaveObj3.oH2B > 0 %}
+                            <option value="Optional Holiday (OH)">Optional Holiday (OH)</option>
+                            {% endif %}
+                            {% if yearLeaveObj3.oH2B == 0 %}
+                            <option value="Optional Holiday (OH)" disabled>Optional Holiday (OH)</option>
+                            {% endif %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="date" name="startDate" class="form-control" placeholder="Enter Start Date" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>End Date</label>
+                            <input type="date" name="endDate" class="form-control" placeholder="Enter End Date" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Reason</label>
+                            <textarea name="reason" class="form-control" placeholder="Enter Reason " required rows="5"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Apply" class="btn btn-dark m-2 px-3">
+            </form>
+        </div>
+    </div>
+</div>
+{% if error == "no" %}
+<script>
+    alert("Applied for Leave Successfully!!!");
+    window.location = ("{% url 'viewEmpLeaveApplication' %}");
+</script>
+{% endif %}
+{% if error == "yes" %}
+<script>
+    alert("Something went wrong. Try Again....");
+</script>
+{% endif %}
+
+{% endblock %}

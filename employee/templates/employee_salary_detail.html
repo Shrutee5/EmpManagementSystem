@@ -1,0 +1,22 @@
+{% extends 'empBase.html' %}
+{% block main %}
+{% if employee_detail %}
+    <h2>Employee Detail</h2>
+    <p>Empcode: {{ employee_detail.empcode }}</p>
+    <p>Name: {{ employee_detail.user.first_name }} {{ employee_detail.user.last_name }}</p>
+    <!-- Display other fields from EmployeeDetail model -->
+
+    {% if staff_salary %}
+        <h2>Staff Salary</h2>
+        <p>Empcode: {{ staff_salary.empcode.empcode }}</p>
+        <p>Basic: {{ staff_salary.basic }}</p>
+        <p>HRA: {{ staff_salary.hra }}</p>
+        <!-- Display other fields from StaffSalary model -->
+    {% else %}
+        <p>No salary information available.</p>
+    {% endif %}
+{% else %}
+    <p>Employee not found.</p>
+{% endif %}
+
+{% endblock %}

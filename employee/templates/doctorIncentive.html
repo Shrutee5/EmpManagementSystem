@@ -1,0 +1,130 @@
+{% extends 'adminBase.html' %}
+{% block main %}
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.4.0/js/dataTables.fixedHeader.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.4.0/css/fixedHeader.dataTables.min.css">
+<script>
+    $(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+        ]
+    } );
+} );
+new DataTable('#example', {
+    fixedHeader: {
+        header: true,
+        footer: true
+    },
+    paging: false,
+    scrollCollapse: true,
+    scrollX: true,
+    scrollY: 300
+});
+</script>
+<style>
+.card {
+  width: 100%;
+}
+
+.card-body {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+}
+</style>
+<div class="card shadow m-2" style="width:100%">
+    <div class="card-body" style="width:100%">
+        <h5 class="p-2" style="border-bottom:2px solid orange;">Doctor Incentive Details</h5>
+
+        <form method="post" id="filter-form">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="month">Month</label>
+                    <select class="form-control" id="month" name="month" required>
+                        <option value="" disabled selected>Select Month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="year">Year</label>
+                    <select class="form-control" id="year" name="year" required>
+                        <option value="" disabled selected>Select Year</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                        <option value="2030">2030</option>
+                        <!-- Add other years here -->
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <button type="submit" class="btn btn-primary" style="margin-left: 20px; margin-top: 30px;">Submit</button>
+                </div>
+            </div>
+        </form>
+        <div class="container-fluid" style="width:100%">
+            <table class="table" id="example" style="width:100%" border="1px">
+                <thead>
+                    <tr>
+                        {% for column_name in column_names %}
+                        <th>{{ column_name }}</th>
+                        {% endfor %}
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in csv_data %}
+                    <tr>
+                        <form method="post" action="{% url 'update_doctor_fields' %}">
+                        {% csrf_token %}
+                        {% for cell in row %}
+                        <td><input type="hidden" name="{{ forloop.counter0 }}" value="{{ cell }}">{{cell}}</td>
+                        {% endfor %}
+                        <td>
+                            <button type="submit">Update</button>
+                        </td>
+                        </form>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+

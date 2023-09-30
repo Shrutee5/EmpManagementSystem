@@ -1,0 +1,49 @@
+{% extends 'adminBase.html' %}
+{% block main %}
+<div class="card shadow m-2" style="width:100%">
+    <div class="card-body" style="width:100%">
+        <h5 class="p-2" style="border-bottom:2px solid orange">Professional Salary Calculations</h5>
+        <form method="post" id="filter-form">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="month">Month</label>
+                    <select class="form-control" id="month" name="month">
+                        <option value="" disabled selected>Select Month</option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="year">Year</label>
+                    <select class="form-control" id="year" name="year">
+                        <option value="" disabled selected>Select Year</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                        <option value="2030">2030</option>
+                        <!-- Add other years here -->
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <button type="submit" class="btn btn-primary" style="margin-left: 20px; margin-top: 30px;" id="submit-button">Submit</button>
+                </div>
+            </div>
+        </form>
+        </div>
+        </div>
+{% endblock %}

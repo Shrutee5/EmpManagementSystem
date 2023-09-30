@@ -1,0 +1,48 @@
+{% load static %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <a class="navbar-brand" href="#">PAYROLL HUB</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'empLogin' %}"><i class="fa fa-sign-in-alt" aria-hidden="true"></i> Employee Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'adminLogin' %}"><i class="fa fa-sign-in-alt" aria-hidden="true"></i> Admin Login</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<style>
+.background-image-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1; /* To position the image behind the content */
+}
+
+.background-image-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Ensure the image covers the container */
+}
+
+</style>
+<div class="background-image-container">
+    <img src="{% static 'images/Homepage.jpg' %}" alt="admin-icon">
+</div>
+</head>

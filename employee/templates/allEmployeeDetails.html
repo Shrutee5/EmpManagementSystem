@@ -1,0 +1,140 @@
+{% extends 'adminBase.html' %}
+{% block main %}
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.4.0/js/dataTables.fixedHeader.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.4.0/css/fixedHeader.dataTables.min.css">
+<script>
+    $(document).ready(function() {
+        var currentDate = new Date();
+        var formattedDate = currentDate.toISOString().slice(0, 10); // Format: YYYY-MM-DD
+
+        var table = $('#example').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copyHtml5',
+                    text: 'Copy'
+                },
+                {
+                    extend: 'excelHtml5',
+                    text: 'Excel',
+                    title: 'Employee Information - ' + formattedDate
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: 'PDF',
+                    title: 'Employee Information - ' + formattedDate
+                }
+            ]
+        });
+
+        new $.fn.dataTable.FixedHeader(table);
+
+        table.DataTable({
+            paging: false,
+            scrollCollapse: true,
+            scrollX: true,
+            scrollY: 300
+        });
+
+        // Trigger export on button click
+        $('#export-buttons button').on('click', function() {
+            var button = $(this);
+            var exportType = button.data('type');
+            
+            // For other export types, let DataTables handle it
+            table.button(button).trigger();
+        });
+    });
+</script>
+
+
+<style>
+.card {
+  width: 100%;
+}
+
+.card-body {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+}
+    
+
+</style>
+<div class="card shadow m-2" style="width:100%">
+    <div class="card-body" style="width:100%">
+        <h5 class="p-2" style="border-bottom:2px solid orange">Employee Details</h5>
+        <div class="container-fluid" style="width:100%">
+            <table class="table" id="example" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Sr. No.</th>
+                        <th>Employee Code</th>
+                        <th>Name</th>
+                        <th>Email ID</th>
+                        <th>Department</th>
+                        <th>Designation</th>
+                        <th>Contact No.</th>
+                        <th>Gender</th>
+                        <th>Reporting Manager</th>
+                        <th>DOB</th>
+                        <th>Date of Joining</th>
+                        <th>Adhar No.</th>
+                        <th>PF No.</th>
+                        <th>UAN No.</th>
+                        <th>ESIC No.</th>
+                        <th>Bank Name</th>
+                        <th>Account No.</th>
+                        <th>IFSC Code</th>
+                        <th>Employee Type</th>
+                        <th>Status</th>
+                        <th>Leaving Date</th>
+                        <th>Company Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for emp in employee %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{emp.empcode}}</td>
+                        <td>{{emp.user.first_name}} {{emp.user.last_name}}</td>
+                        <td>{{emp.user.username}}</td>
+                        <td>{{emp.empdept}}</td>
+                        <td>{{emp.designation}}</td>
+                        <td>{{emp.contact}}</td>
+                        <td>{{emp.gender}}</td>
+                        <td>{{emp.manage}}</td>
+                        <td>{{emp.dob}}</td>
+                        <td>{{emp.joiningDate}}</td>
+                        <td>{{emp.adhar}}</td>
+                        <td>{{emp.pfno}}</td>
+                        <td>{{emp.uan}}</td>
+                        <td>{{emp.esicip}}</td>
+                        <td>{{emp.bank}}</td>
+                        <td>{{emp.accountno}}</td>
+                        <td>{{emp.ifsc}}</td>
+                        <td>{{emp.emptype}}</td>
+                        <td>{{emp.status}}</td>
+                        <td>{{emp.leavingDate}}</td>
+                        <td>{{emp.company_name}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

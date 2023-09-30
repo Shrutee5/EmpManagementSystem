@@ -1,0 +1,88 @@
+{% extends 'adminBase.html' %}
+{% block main %}
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.4.0/js/dataTables.fixedHeader.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.4.0/css/fixedHeader.dataTables.min.css">
+<script>
+    $(document).ready(function() {
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+        ]
+    } );
+} );
+new DataTable('#example', {
+    fixedHeader: {
+        header: true,
+        footer: true
+    },
+    paging: false,
+    scrollCollapse: true,
+    scrollX: true,
+    scrollY: 300
+});
+</script>
+<style>
+.card {
+  width: 100%;
+}
+
+.card-body {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+}
+</style>
+<div class="card shadow m-2" style="width:100%">
+    <div class="card-body" style="width:100%">
+        <h5 class="p-2" style="border-bottom:2px solid orange">Staff Salary Details</h5>
+        <div class="container-fluid" style="width:100%">
+            <table class="table" id="example" style="width:100%;" border="1px">
+                <thead>
+                    <tr>
+                        {% for column_name in column_names %}
+                        <th>{{ column_name }}</th>
+                        {% endfor %}
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in csv_data %}
+                    <tr>
+                        <form method="post" action="{% url 'update_exercise_field' %}">
+                        {% csrf_token %}
+                        {% for cell in row %}
+                        <td><input type="hidden" name="{{ forloop.counter0 }}" value="{{ cell }}">{{ cell }}</td>
+                        {% endfor %}
+                        <td>
+                            <button type="submit">Update</button>
+                        </td>
+                    </form>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+

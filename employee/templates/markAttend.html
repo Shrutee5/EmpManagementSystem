@@ -1,0 +1,80 @@
+{% extends 'empBase.html' %}
+{% block main %}
+
+<style>
+    .btn{
+        margin-left: 40%;
+        margin-right: 40%;
+        padding-top: 2%;
+        padding-bottom: 2%;
+        font-size: 20px;
+        font-weight: bold;
+            
+    }
+</style>
+
+<div class="actions">
+    {% if not attendance.is_present and flag == 0 %}
+    <a href="{% url 'markA' %}" class="btn btn-success" name="Present" value ="Present">Mark Attendance</a>
+    {% elif attendance.is_present  == 1 %}
+    <button class="btn btn-success" disabled="disabled">Marked Attendance</button>
+    {% elif attendance.is_present  == 2 %}
+    <button class="btn btn-success" disabled="disabled">Mark Attendance</button>
+    {% endif %}
+    {% if flag == 1 %}
+    <button class="btn btn-success" disabled="disabled">Mark Attendance</button>
+    {% endif %}
+</div>
+<br>
+<br>
+{% if man %}
+<div class="container-fluid">
+    <div class="card shadow" style="min-height:50vh">
+        <div class="card-body">
+            <h5 class="p-2" style="border-bottom:2px solid orange">Team Attendance</h5>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card shadow mb-3">
+                        <div class="card-body" style="padding-top: 2px;">
+                            <ul style="list-style-type: none; padding-left: 0;">
+                                <li class="p-2">
+                                    <i class="fa fa-circle" style="color: red;" aria-hidden="true" ></i> Absent <b>:   {{absent_count}}</b>
+                                </li>
+                                <li class="p-2">
+                                    <i class="fa fa-circle" style="color: green;" aria-hidden="true" ></i> Present  <b>:   {{    present_count}}</b>
+                                </li>
+                                <li class="p-2">
+                                    <i class="fa fa-circle" style="color: rgb(0, 128, 255);" aria-hidden="true" ></i> On Leave <b>:  {{on_leave_count}}</b>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+                {% for ea in employee_attendance %}
+                <div class="col-md-4">
+                    <div class="card shadow mb-3">
+                        <div class="card-body">
+                            <h5 class="p-2" style="margin-bottom: -7px;" >{{ ea.employee.user.first_name }} {{ ea.employee.user.last_name }}</h5>
+                            <h6 class="p-2" style="margin-bottom: -7px;" >{{ea.employee.designation}}</h6>
+                            {% if ea.attendance == 0 %}
+                            <button type="button" class="btn btn-outline-danger m-2" style="padding: 1px 40px 1px 40px; border-radius: 15px;" disabled>Absent</button>
+                            {% endif %}
+                            {% if ea.attendance == 1 %}
+                            <button type="button" class="btn btn-outline-success m-2" style="padding: 1px 40px 1px 40px; border-radius: 15px;" disabled>Present</button>
+                            {% endif %}
+                            {% if ea.attendance == 2 %}
+                            <button type="button" class="btn btn-outline-primary m-2" style="padding: 1px 40px 1px 40px; border-radius: 15px;" disabled>On Leave</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>  
+</div>
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,257 @@
+{% extends 'adminBase.html' %}
+{% block main %}
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.4.0/js/dataTables.fixedHeader.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.4.0/css/fixedHeader.dataTables.min.css">
+<script>
+    $(document).ready(function() {
+        var currentDate = new Date();
+        var formattedDate = currentDate.toISOString().slice(0, 10); // Format: YYYY-MM-DD
+        var selectedMonth = "{{ selected_month }}"; // Get the selected month from your Django context
+        var selectedYear = "{{ selected_year }}"; // Get the selected year from your Django context
+    $('#example').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+        'copyHtml5',
+        {
+            extend:'excelHtml5',
+            text:'Excel',
+            title: 'Professional Salary Calculation - ' + formattedDate,
+            filename: 'Professional_salary_calculation_' + selectedMonth + '_' + selectedYear
+        }
+        ],
+        columns: [
+            null,
+            null,
+            null,
+            null,
+            { 
+                // Format the fifth column as a number with commas and 2 decimal places
+                render: function ( data, type, row ) {
+                    if (type === 'display' || type === 'filter') {
+                        return parseFloat(data).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    }
+                    return data;
+                }
+            },
+            { 
+                // Format the sixth column as a number with commas and 2 decimal places
+                render: function ( data, type, row ) {
+                    if (type === 'display' || type === 'filter') {
+                        return parseFloat(data).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    }
+                    return data;
+                }
+            },
+            { 
+                // Format the 7th column as a number with commas and 2 decimal places
+                render: function ( data, type, row ) {
+                    if (type === 'display' || type === 'filter') {
+                        return parseFloat(data).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    }
+                    return data;
+                }
+            },
+            { 
+                // Format the 8th column as a number with commas and 2 decimal places
+                render: function ( data, type, row ) {
+                    if (type === 'display' || type === 'filter') {
+                        return parseFloat(data).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    }
+                    return data;
+                }
+            },
+            { 
+                // Format the 9th column as a number with commas and 2 decimal places
+                render: function ( data, type, row ) {
+                    if (type === 'display' || type === 'filter') {
+                        return parseFloat(data).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    }
+                    return data;
+                }
+            },
+            { 
+                // Format the 10th column as a number with commas and 2 decimal places
+                render: function ( data, type, row ) {
+                    if (type === 'display' || type === 'filter') {
+                        return parseFloat(data).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    }
+                    return data;
+                }
+            },
+            { 
+                // Format the 11th column as a number with commas and 2 decimal places
+                render: function ( data, type, row ) {
+                    if (type === 'display' || type === 'filter') {
+                        return parseFloat(data).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    }
+                    return data;
+                }
+            },
+            { 
+                // Format the 12th column as a number with commas and 2 decimal places
+                render: function ( data, type, row ) {
+                    if (type === 'display' || type === 'filter') {
+                        return parseFloat(data).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    }
+                    return data;
+                }
+            },
+            { 
+                // Format the 13th column as a number with commas and 2 decimal places
+                render: function ( data, type, row ) {
+                    if (type === 'display' || type === 'filter') {
+                        return parseFloat(data).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    }
+                    return data;
+                }
+            },
+            { 
+                // Format the 14th column as a number with commas and 2 decimal places
+                render: function ( data, type, row ) {
+                    if (type === 'display' || type === 'filter') {
+                        return parseFloat(data).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    }
+                    return data;
+                }
+            },
+            { 
+                // Format the 15th column as a number with commas and 2 decimal places
+                render: function ( data, type, row ) {
+                    if (type === 'display' || type === 'filter') {
+                        return parseFloat(data).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    }
+                    return data;
+                }
+            },
+            null,
+            null
+        ]
+    } );
+} );
+new DataTable('#example', {
+    fixedHeader: {
+        header: true,
+        footer: true
+    },
+    paging: false,
+    scrollCollapse: true,
+    scrollX: true,
+    scrollY: 300
+});
+</script>
+<style>
+.card {
+  width: 100%;
+}
+
+.card-body {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+}
+</style>
+<div class="card shadow m-2" style="width:100%">
+    <div class="card-body" style="width:100%">
+        <h5 class="p-2" style="border-bottom:2px solid orange">Download Professional Salary</h5>
+        <form method="post" id="filter-form">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="month">Month</label>
+                    <select class="form-control" id="month" name="month" required>
+                        <option value="" disabled selected>Select Month</option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="year">Year</label>
+                    <select class="form-control" id="year" name="year" required>
+                        <option value="" disabled selected>Select Year</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                        <option value="2030">2030</option>
+                        <!-- Add other years here -->
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <button type="submit" class="btn btn-primary" style="margin-left: 20px; margin-top: 30px;">Submit</button>
+                </div>
+                </form>
+        <div class="container-fluid" style="width:100%">
+            <table class="table" id="example" style="width:100%;" border="1px">
+                <thead>
+                    <tr>
+                        <th>Sr. No.</th>
+                        <th>Empcode</th>
+                        <th>Employee Name</th>
+                        <th>Pay Days</th>
+                        <th>App Salary</th>
+                        <th>Professional Fees</th>
+                        <th>App Salary A</th>
+                        <th>Professional Fees A</th>
+                        <th>Professional Incentive</th>
+                        <th>Other Earning</th>
+                        <th>Gross Earning</th>
+                        <th>Income Tax</th>
+                        <th>Other Deduction</th>
+                        <th>Gross Deduction</th>
+                        <th>Net Salary</th>
+                        <th>Month</th>
+                        <th>Year</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for emp in combined_data %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{emp.empcode}}</td>
+                        <td>{{emp.empName}}</td>
+                        <td>{{emp.payDays}}</td>
+                        <td>{{emp.app_salary}}</td>
+                        <td>{{emp.professional_fees}}</td>
+                        <td>{{emp.appSalary}}</td>
+                        <td>{{emp.professionalFees}}</td>
+                        <td>{{emp.profIncentive}}</td>
+                        <td>{{emp.other_earning}}</td>
+                        <td>{{emp.grossEarn}}</td>
+                        <td>{{emp.incomeT}}</td>
+                        <td>{{emp.other_deduction}}</td>
+                        <td>{{emp.grossDed}}</td>
+                        <td>{{emp.netSal}}</td>
+                        <td>{{emp.month}}</td>
+                        <td>{{emp.year}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

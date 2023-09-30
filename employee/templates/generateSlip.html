@@ -1,0 +1,43 @@
+{% extends 'adminBase.html' %}
+{% block main %}
+<body>
+    <h1>Select Month and Year</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="month">Select Month:</label>
+        <select name="month" id="month" required>
+            <!-- Add the first option with the disabled attribute -->
+            <option value="" disabled selected>Select Month</option>
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+        </select>
+
+        <label for="year">Select Year:</label>
+        <select name="year" id="year" required>
+            <!-- Add the first option with the disabled attribute -->
+            <option value="" disabled selected>Select Year</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+            <option value="2027">2027</option>
+            <option value="2028">2028</option>
+            <option value="2029">2029</option>
+            <option value="2030">2030</option>
+        </select>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+{{saturdays}}
+{% endblock %}

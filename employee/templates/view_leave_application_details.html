@@ -1,0 +1,20 @@
+<h2>Leave Application Details</h2>
+<h3>{{ leave_app.employee }} - {{ leave_app.leave_type }}</h3>
+<p>Start Date: {{ leave_app.start_date }}</p>
+<p>End Date: {{ leave_app.end_date }}</p>
+<p>Status: {% if leave_app.is_approved %}Approved{% else %}Pending{% endif %}</p>
+
+{% if leave_app.is_approved %}
+  <p>Approved By: {{ leave_app.manager }}</p>
+{% else %}
+  <form method="POST" action="{% url 'leave_application' application_id=leave_app.id %}">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="approve">
+    <input type="submit" value="Approve">
+  </form>
+  <form method="POST" action="{% url 'leave_application' application_id=leave_app.id %}">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="disapprove">
+    <input type="submit" value="Disapprove">
+  </form>
+{% endif %}
